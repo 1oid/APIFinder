@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "APIFinder",
+  "description": "基于ChromeExtension的API请求搜集和文档报告生成的扩展",
+  "version": "1.0",
+  "icons": {
+    "16": "./images/icon16.png",
+    "32": "./images/icon32.png",
+    "48": "./images/icon48.png",
+    "64": "./images/icon64.png"
+  },
+  "content_scripts": [],
+  "devtools_page": "/page/devtools/index.html",
+  "background": {
+    "page": "page/background.html"
+  },
+  "permissions": [
+    "<all_urls>",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking"
+  ]
+}
