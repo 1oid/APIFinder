@@ -60,7 +60,7 @@ class detailRequest {
 
     getParamter() {
         if(this.method.toLocaleUpperCase() === "GET")
-            return URL.paramToObject(this.url)
+            return URL.paramToObject(this.url).param
         else if(this.method.toLocaleUpperCase() === "POST")
             return this.requestBodyJson
     }
