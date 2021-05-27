@@ -16,6 +16,16 @@
  * }
  *
  * */
+const STATIC_EXT = {
+    data: [
+        "js", "css", "map",
+        "png", "jpg", "jpeg",
+    ],
+    has(ext) {
+        return this.data.indexOf(ext.toLocaleLowerCase()) !== -1;
+    }
+}
+
 const blackExtFilterList = [
     "css"
 ];

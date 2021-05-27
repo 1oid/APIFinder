@@ -4,17 +4,12 @@ chrome.devtools.panels.create(
     function(panel) {
 });
 
-
 const bgPage = chrome.extension.getBackgroundPage()
+const data = bgPage.saveList.data
 
-let text = ""
-let data = bgPage.saveList.data
-
-chrome.tabs.query({
-    active: true
-}, tabs => {
-    let tab = tabs[0]
-    let request = data[URL.getURLHost(tab.url)]
+var getData = url => {
+    let text = ""
+    let request = data[URL.getURLHost(url)]
 
     if(request === undefined)
         return ;
@@ -24,19 +19,22 @@ chrome.tabs.query({
 
         text += "<tr>"
         text += "<td style=\"max-width: 40%;word-break: break-word\">" + requestItem.url + "</td>"
+        text += "<td>" + requestItem.getURLExtLabel() + "</td>"
 
-        if(requestItem.method.toLocaleUpperCase() === "GET") {
-            text += "<td><span class='label label-success'>" + requestItem.method + "</span></td>"
-        }else if(requestItem.method.toLocaleUpperCase() === "POST") {
-            text += "<td><span class='label label-danger'>" + requestItem.method + "</span></td>"
-        }
-        text += "<td>" + JSON.stringify(requestItem.getParamter()) + "</td>"
+        text += "<td>" + requestItem.getMethodLabel() + "</td>"
+        text += "<td>" + requestItem.getParamterString() + "</td>"
 
         text += "</tr>"
     }
 
-    $("#app tbody").html(text)
+    return text
+}
 
+chrome.tabs.query({
+    active: true
+}, tabs => {
+    let tab = tabs[0]
+    $("#app tbody").html(getData(tab.url))
 })
 
 // for(let site in data) {

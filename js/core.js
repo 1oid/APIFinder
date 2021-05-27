@@ -64,6 +64,38 @@ class detailRequest {
         else if(this.method.toLocaleUpperCase() === "POST")
             return this.requestBodyJson
     }
+
+    getParamterString() {
+        let data = JSON.stringify(this.getParamter())
+        return data === "{}" ? "无参数": data
+    }
+
+    getMethodLabel() {
+        let label = ""
+
+        switch (this.method.toLocaleUpperCase()) {
+            case "GET":
+                label = "label-success"
+                break
+            case "POST":
+                label = "label-danger"
+                break
+        }
+        return "<span class='label "+label+"'>" + this.method.toLocaleUpperCase() + "</span>"
+    }
+
+    getURLExtLabel() {
+        let label = ""
+        let ext = URL.getURLExt(this.url)
+
+        if(STATIC_EXT.has(ext)) {
+            label = ""
+            ext = "静态资源"
+        }else {
+            label = "label-info"
+        }
+        return "<span class='label "+label+"'>" + ext.toLocaleLowerCase() + "</span>"
+    }
 }
 
 class URL {
@@ -131,6 +163,7 @@ class URL {
     }
 
     static getURLHost(url) {
+        console.log(url)
         let removeSchema = url.split("://")[1]
         let schema = url.split("://")[0]
 
